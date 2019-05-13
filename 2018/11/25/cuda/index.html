@@ -11,21 +11,21 @@
   
   
   
-  <meta name="description" content="CUDA 内存管理(一)一、寄存器​    GPU的每个SM（流多处理器）都有上千个寄存器，每个SM都可以看作是一个多线程的CPU核，但与一般的CPU拥有二、四、六或八个核不同，一个GPU可以有N个SM核；同样，与一般的CPU核支持一到两个硬件线程不同，每个SM核可能有8~192个SP（流处理器），亦即每个SM能同时支持这么多个硬件线程。事实上，一台GPU设备的所有SM中活跃的线程数目通常数以万计">
+  <meta name="description" content="本文将探讨CUDA中的内存管理机制。">
 <meta name="keywords" content="Tech,CUDA">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CUDA内存管理总结(一)">
-<meta property="og:url" content="http://clusters.zju.edu.cn/2018/11/25/cuda/index.html">
+<meta property="og:url" content="https://zjusct.github.io/2018/11/25/cuda/index.html">
 <meta property="og:site_name" content="浙江大学超算队">
-<meta property="og:description" content="CUDA 内存管理(一)一、寄存器​    GPU的每个SM（流多处理器）都有上千个寄存器，每个SM都可以看作是一个多线程的CPU核，但与一般的CPU拥有二、四、六或八个核不同，一个GPU可以有N个SM核；同样，与一般的CPU核支持一到两个硬件线程不同，每个SM核可能有8~192个SP（流处理器），亦即每个SM能同时支持这么多个硬件线程。事实上，一台GPU设备的所有SM中活跃的线程数目通常数以万计">
+<meta property="og:description" content="本文将探讨CUDA中的内存管理机制。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://clusters.zju.edu.cn/2018/11/25/cuda/1.png">
-<meta property="og:image" content="http://clusters.zju.edu.cn/2018/11/25/cuda/2.png">
-<meta property="og:updated_time" content="2019-05-12T12:42:23.061Z">
+<meta property="og:image" content="https://zjusct.github.io/2018/11/25/cuda/1.png">
+<meta property="og:image" content="https://zjusct.github.io/2018/11/25/cuda/2.png">
+<meta property="og:updated_time" content="2019-05-13T07:20:37.535Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CUDA内存管理总结(一)">
-<meta name="twitter:description" content="CUDA 内存管理(一)一、寄存器​    GPU的每个SM（流多处理器）都有上千个寄存器，每个SM都可以看作是一个多线程的CPU核，但与一般的CPU拥有二、四、六或八个核不同，一个GPU可以有N个SM核；同样，与一般的CPU核支持一到两个硬件线程不同，每个SM核可能有8~192个SP（流处理器），亦即每个SM能同时支持这么多个硬件线程。事实上，一台GPU设备的所有SM中活跃的线程数目通常数以万计">
-<meta name="twitter:image" content="http://clusters.zju.edu.cn/2018/11/25/cuda/1.png">
+<meta name="twitter:description" content="本文将探讨CUDA中的内存管理机制。">
+<meta name="twitter:image" content="https://zjusct.github.io/2018/11/25/cuda/1.png">
   
 
   
@@ -43,16 +43,16 @@
     @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
     @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
     @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style>
-  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="../../../../css/style.css">
 
-  <script src="/js/jquery-3.1.1.min.js"></script>
-  <script src="/js/bootstrap.js"></script>
+  <script src="../../../../js/jquery-3.1.1.min.js"></script>
+  <script src="../../../../js/bootstrap.js"></script>
 
   <!-- Bootstrap core CSS -->
   <link rel="stylesheet" href="/css/bootstrap.css">
 
   
-    <link rel="stylesheet" href="/css/dialog.css">
+    <link rel="stylesheet" href="../../../../css/dialog.css">
   
 
   
@@ -101,15 +101,15 @@
             <div class="navbar-collapse collapse">
               <ul class="hnav navbar-nav">
                 
-                  <li> <a class="main-nav-link" href="/">Home</a> </li>
+                  <li> <a class="main-nav-link" href="../../../../index.html">Home</a> </li>
                 
-                  <li> <a class="main-nav-link" href="/archives">articles</a> </li>
+                  <li> <a class="main-nav-link" href="../../../../archives">Articles</a> </li>
                 
-                  <li> <a class="main-nav-link" href="/about">About</a> </li>
+                  <li> <a class="main-nav-link" href="../../../../about">About</a> </li>
                 
-                  <li> <a class="main-nav-link" href="/teamIntro">team intro</a> </li>
+                  <li> <a class="main-nav-link" href="../../../../teamIntro">TeamIntro</a> </li>
                 
-                  <li> <a class="main-nav-link" href="/contact">join us</a> </li>
+                  <li> <a class="main-nav-link" href="../../../../contact">JoinUs</a> </li>
                 
                   <li><div id="search-form-wrap">
 
@@ -140,12 +140,12 @@
             UNTITLED: '(Untitled)',
         },
         ROOT_URL: '/',
-        CONTENT_URL: '/content.json',
+        CONTENT_URL: '../../../../content.json',
     };
     window.INSIGHT_CONFIG = INSIGHT_CONFIG;
 })(window);
 </script>
-<script src="/js/insight.js"></script>
+<script src="../../../../js/insight.js"></script>
 
 </div></li>
             </ul></div>
@@ -180,7 +180,7 @@
         
         <div class="article-meta">
             
-	<a href="/2018/11/25/cuda/" class="article-date">
+	<a href class="article-date">
 	  <time datetime="2018-11-24T16:46:08.000Z" itemprop="datePublished">2018-11-25</time>
 	</a>
 
@@ -192,10 +192,16 @@
 		</span>
 	</a>
 
+            <div class="article-article-tags-box">
+              <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/CUDA/">CUDA</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/Tech/">Tech</a></li></ul>
+            </div>
         </div>
         <div class="article-entry" itemprop="articleBody">
             
-            <h1 id="CUDA-内存管理-一"><a href="#CUDA-内存管理-一" class="headerlink" title="CUDA 内存管理(一)"></a>CUDA 内存管理(一)</h1><h2 id="一、寄存器"><a href="#一、寄存器" class="headerlink" title="一、寄存器"></a>一、寄存器</h2><p>​    GPU的每个SM（流多处理器）都有上千个寄存器，每个SM都可以看作是一个多线程的CPU核，但与一般的CPU拥有二、四、六或八个核不同，一个GPU可以有<strong>N个SM核</strong>；同样，与一般的CPU核支持一到两个硬件线程不同，每个SM核可能有<strong>8~192个SP</strong>（流处理器），亦即每个SM能同时支持这么多个硬件线程。事实上，一台GPU设备的所有SM中活跃的线程数目通常数以万计。</p>
+            <p>本文将探讨CUDA中的内存管理机制。</p>
+<a id="more"></a>
+
+<h2 id="一、寄存器"><a href="#一、寄存器" class="headerlink" title="一、寄存器"></a>一、寄存器</h2><p>​    GPU的每个SM（流多处理器）都有上千个寄存器，每个SM都可以看作是一个多线程的CPU核，但与一般的CPU拥有二、四、六或八个核不同，一个GPU可以有<strong>N个SM核</strong>；同样，与一般的CPU核支持一到两个硬件线程不同，每个SM核可能有<strong>8~192个SP</strong>（流处理器），亦即每个SM能同时支持这么多个硬件线程。事实上，一台GPU设备的所有SM中活跃的线程数目通常数以万计。</p>
 <h3 id="1-1-寄存器映射方式"><a href="#1-1-寄存器映射方式" class="headerlink" title="1.1 寄存器映射方式"></a>1.1 寄存器映射方式</h3><p>​    <strong>CPU处理多线程</strong>：进行上下文切换，使用寄存器重命名机制，将当前所有寄存器的状态保存到栈（系统内存），再从栈中恢复当前需要执行的新线程在上一次的执行状态。这些操作通常花费上百个CPU时钟周期，有效工作吞吐量低。</p>
 <p>​    <strong>GPU处理多线程</strong>：与CPU相反，GPU利用多线程隐藏了内存获取与指令执行带来的延迟；此外，GPU不再使用寄存器重命名机制，而是尽可能为每个线程分配寄存器，从而上下文切换就变成了寄存器组选择器（或指针）的更新，几乎是零开销。</p>
 <h3 id="1-2-寄存器空间大小"><a href="#1-2-寄存器空间大小" class="headerlink" title="1.2 寄存器空间大小"></a>1.2 寄存器空间大小</h3><p>​    每个SM可提供的寄存器空间大小分别有8KB、16KB、32KB和64KB，每个线程中的每个变量占用一个寄存器，因而总共会占用N个寄存器，N代表调度的线程数量。当线程块上的寄存器数目是允许的最大值时，每个SM会只处理一个线程块。</p>
@@ -294,11 +300,11 @@
             <div>
     <ul class="post-copyright">
         <li class="post-copyright-author">
-            <strong>Post author:  </strong>ZJUSCT
+            <strong>Post author:  </strong>ZJU · SCT
         </li>
         <li class="post-copyright-link">
             <strong>Post link:  </strong>
-            <a href="/2018/11/25/cuda/" target="_blank" title="CUDA内存管理总结(一)">http://clusters.zju.edu.cn/2018/11/25/cuda/</a>
+            <a href="/2018/11/25/cuda/" target="_blank" title="CUDA内存管理总结(一)">https://zjusct.github.io/2018/11/25/cuda/</a>
         </li>
         <li class="post-copyright-license">
             <strong>Copyright Notice:  </strong>
@@ -316,7 +322,7 @@
     
 <nav id="article-nav">
   
-    <a href="/2018/12/07/cuprof/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="../../../12/07/cuprof/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
@@ -326,7 +332,7 @@
     </a>
   
   
-    <a href="/2018/09/30/first/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="../../../09/30/first/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
       <div class="article-nav-title">浙江大学超算队博客...活了？</div>
     </a>
@@ -342,7 +348,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#CUDA-内存管理-一"><span class="nav-number">1.</span> <span class="nav-text">CUDA 内存管理(一)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、寄存器"><span class="nav-number">1.1.</span> <span class="nav-text">一、寄存器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-寄存器映射方式"><span class="nav-number">1.1.1.</span> <span class="nav-text">1.1 寄存器映射方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-寄存器空间大小"><span class="nav-number">1.1.2.</span> <span class="nav-text">1.2 寄存器空间大小</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-SM调度线程、线程块"><span class="nav-number">1.1.3.</span> <span class="nav-text">1.3 SM调度线程、线程块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-寄存器优化方式"><span class="nav-number">1.1.4.</span> <span class="nav-text">1.4 寄存器优化方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-5-总结"><span class="nav-number">1.1.5.</span> <span class="nav-text">1.5 总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、共享内存"><span class="nav-number">1.2.</span> <span class="nav-text">二、共享内存</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-基本概念"><span class="nav-number">1.2.1.</span> <span class="nav-text">2.1 基本概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-Example：使用共享内存排序"><span class="nav-number">1.2.2.</span> <span class="nav-text">2.2 Example：使用共享内存排序</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-1-归并排序"><span class="nav-number">1.3.</span> <span class="nav-text">2.2.1 归并排序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-2-合并列表"><span class="nav-number">1.4.</span> <span class="nav-text">2.2.2 合并列表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-3-并行归约"><span class="nav-number">1.5.</span> <span class="nav-text">2.2.3 并行归约</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-4-混合算法"><span class="nav-number">1.6.</span> <span class="nav-text">2.2.4 混合算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-5-总结"><span class="nav-number">1.7.</span> <span class="nav-text">2.2.5 总结</span></a></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、寄存器"><span class="nav-number">1.</span> <span class="nav-text">一、寄存器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-寄存器映射方式"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 寄存器映射方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-寄存器空间大小"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 寄存器空间大小</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-SM调度线程、线程块"><span class="nav-number">1.3.</span> <span class="nav-text">1.3 SM调度线程、线程块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-寄存器优化方式"><span class="nav-number">1.4.</span> <span class="nav-text">1.4 寄存器优化方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-5-总结"><span class="nav-number">1.5.</span> <span class="nav-text">1.5 总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、共享内存"><span class="nav-number">2.</span> <span class="nav-text">二、共享内存</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-基本概念"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 基本概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-Example：使用共享内存排序"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 Example：使用共享内存排序</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-1-归并排序"><span class="nav-number">3.</span> <span class="nav-text">2.2.1 归并排序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-2-合并列表"><span class="nav-number">4.</span> <span class="nav-text">2.2.2 合并列表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-3-并行归约"><span class="nav-number">5.</span> <span class="nav-text">2.2.3 并行归约</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-4-混合算法"><span class="nav-number">6.</span> <span class="nav-text">2.2.4 混合算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-5-总结"><span class="nav-number">7.</span> <span class="nav-text">2.2.5 总结</span></a></li></ol>
         
     </div>
 </aside>
@@ -385,15 +391,15 @@
       </div>
       <!-- <nav id="mobile-nav">
   
-    <a href="/" class="mobile-nav-link">Home</a>
+    <a href="../../../../index.html" class="mobile-nav-link">Home</a>
   
-    <a href="/archives" class="mobile-nav-link">Articles</a>
+    <a href="../../../../archives" class="mobile-nav-link">Articles</a>
   
-    <a href="/about" class="mobile-nav-link">About</a>
+    <a href="../../../../about" class="mobile-nav-link">About</a>
   
-    <a href="/teamIntro" class="mobile-nav-link">Team Intro</a>
+    <a href="../../../../teamIntro" class="mobile-nav-link">Team Intro</a>
   
-    <a href="/contact" class="mobile-nav-link">Join Us</a>
+    <a href="../../../../contact" class="mobile-nav-link">Join Us</a>
   
 </nav> -->
       
@@ -431,16 +437,16 @@
 
 
 
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+  <link rel="stylesheet" href="../../../../fancybox/jquery.fancybox.css">
+  <script src="../../../../fancybox/jquery.fancybox.pack.js"></script>
 
 
-<script src="/js/scripts.js"></script>
+<script src="../../../../js/scripts.js"></script>
 
 
 
 
-  <script src="/js/dialog.js"></script>
+  <script src="../../../../js/dialog.js"></script>
 
 
 
@@ -482,7 +488,7 @@
           </div>
 
           <div class="panel-body">
-            Copyright © 2019 ZJUSCT All Rights Reserved.
+            Copyright © 2019 ZJU · SCT All Rights Reserved.
           </div>
 
         </div>

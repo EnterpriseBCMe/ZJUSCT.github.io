@@ -11,18 +11,18 @@
   
   
   
-  <meta name="description" content="如何在墙内快速部署CentOS 7的MySQLMySQL 被 Oracle 收购后，CentOS 的镜像仓库中提供的默认的数据库也变为了 MariaDB，所以默认没有 MySQL ，需要手动安装。 其实安装 MySQL 也并不是一件很难的事情，但是由于一些实际存在的问题(比如某墙)，让默认通过 yum 安装 MySQL 的速度太慢。这里提出一种可行的方案来快速部署 MySQL ，此方案同样适用于其">
+  <meta name="description" content="MySQL 被 Oracle 收购后，CentOS 的镜像仓库中提供的默认的数据库也变为了 MariaDB，所以默认没有 MySQL ，需要手动安装。 其实安装 MySQL 也并不是一件很难的事情，但是由于一些实际存在的问题(比如某墙)，让默认通过 yum 安装 MySQL 的速度太慢。这里提出一种可行的方案来快速部署 MySQL ，此方案同样适用于其他 rpm 包软件的手动安装。 本文实际在讲的">
 <meta name="keywords" content="MySQL,CentOS">
 <meta property="og:type" content="article">
 <meta property="og:title" content="如何在墙内快速部署CentOS 7的MySQL">
-<meta property="og:url" content="http://clusters.zju.edu.cn/2019/03/31/Install-MySQL-on-CentOS7-Inside-GFW/index.html">
+<meta property="og:url" content="https://zjusct.github.io/2019/03/31/Install-MySQL-on-CentOS7-Inside-GFW/index.html">
 <meta property="og:site_name" content="浙江大学超算队">
-<meta property="og:description" content="如何在墙内快速部署CentOS 7的MySQLMySQL 被 Oracle 收购后，CentOS 的镜像仓库中提供的默认的数据库也变为了 MariaDB，所以默认没有 MySQL ，需要手动安装。 其实安装 MySQL 也并不是一件很难的事情，但是由于一些实际存在的问题(比如某墙)，让默认通过 yum 安装 MySQL 的速度太慢。这里提出一种可行的方案来快速部署 MySQL ，此方案同样适用于其">
+<meta property="og:description" content="MySQL 被 Oracle 收购后，CentOS 的镜像仓库中提供的默认的数据库也变为了 MariaDB，所以默认没有 MySQL ，需要手动安装。 其实安装 MySQL 也并不是一件很难的事情，但是由于一些实际存在的问题(比如某墙)，让默认通过 yum 安装 MySQL 的速度太慢。这里提出一种可行的方案来快速部署 MySQL ，此方案同样适用于其他 rpm 包软件的手动安装。 本文实际在讲的">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-05-12T12:42:23.050Z">
+<meta property="og:updated_time" content="2019-05-13T05:06:16.997Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="如何在墙内快速部署CentOS 7的MySQL">
-<meta name="twitter:description" content="如何在墙内快速部署CentOS 7的MySQLMySQL 被 Oracle 收购后，CentOS 的镜像仓库中提供的默认的数据库也变为了 MariaDB，所以默认没有 MySQL ，需要手动安装。 其实安装 MySQL 也并不是一件很难的事情，但是由于一些实际存在的问题(比如某墙)，让默认通过 yum 安装 MySQL 的速度太慢。这里提出一种可行的方案来快速部署 MySQL ，此方案同样适用于其">
+<meta name="twitter:description" content="MySQL 被 Oracle 收购后，CentOS 的镜像仓库中提供的默认的数据库也变为了 MariaDB，所以默认没有 MySQL ，需要手动安装。 其实安装 MySQL 也并不是一件很难的事情，但是由于一些实际存在的问题(比如某墙)，让默认通过 yum 安装 MySQL 的速度太慢。这里提出一种可行的方案来快速部署 MySQL ，此方案同样适用于其他 rpm 包软件的手动安装。 本文实际在讲的">
   
 
   
@@ -40,16 +40,16 @@
     @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
     @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
     @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style>
-  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="../../../../css/style.css">
 
-  <script src="/js/jquery-3.1.1.min.js"></script>
-  <script src="/js/bootstrap.js"></script>
+  <script src="../../../../js/jquery-3.1.1.min.js"></script>
+  <script src="../../../../js/bootstrap.js"></script>
 
   <!-- Bootstrap core CSS -->
   <link rel="stylesheet" href="/css/bootstrap.css">
 
   
-    <link rel="stylesheet" href="/css/dialog.css">
+    <link rel="stylesheet" href="../../../../css/dialog.css">
   
 
   
@@ -98,15 +98,15 @@
             <div class="navbar-collapse collapse">
               <ul class="hnav navbar-nav">
                 
-                  <li> <a class="main-nav-link" href="/">Home</a> </li>
+                  <li> <a class="main-nav-link" href="../../../../index.html">Home</a> </li>
                 
-                  <li> <a class="main-nav-link" href="/archives">articles</a> </li>
+                  <li> <a class="main-nav-link" href="../../../../archives">Articles</a> </li>
                 
-                  <li> <a class="main-nav-link" href="/about">About</a> </li>
+                  <li> <a class="main-nav-link" href="../../../../about">About</a> </li>
                 
-                  <li> <a class="main-nav-link" href="/teamIntro">team intro</a> </li>
+                  <li> <a class="main-nav-link" href="../../../../teamIntro">TeamIntro</a> </li>
                 
-                  <li> <a class="main-nav-link" href="/contact">join us</a> </li>
+                  <li> <a class="main-nav-link" href="../../../../contact">JoinUs</a> </li>
                 
                   <li><div id="search-form-wrap">
 
@@ -137,12 +137,12 @@
             UNTITLED: '(Untitled)',
         },
         ROOT_URL: '/',
-        CONTENT_URL: '/content.json',
+        CONTENT_URL: '../../../../content.json',
     };
     window.INSIGHT_CONFIG = INSIGHT_CONFIG;
 })(window);
 </script>
-<script src="/js/insight.js"></script>
+<script src="../../../../js/insight.js"></script>
 
 </div></li>
             </ul></div>
@@ -177,7 +177,7 @@
         
         <div class="article-meta">
             
-	<a href="/2019/03/31/Install-MySQL-on-CentOS7-Inside-GFW/" class="article-date">
+	<a href class="article-date">
 	  <time datetime="2019-03-31T02:45:19.000Z" itemprop="datePublished">2019-03-31</time>
 	</a>
 
@@ -189,13 +189,17 @@
 		</span>
 	</a>
 
+            <div class="article-article-tags-box">
+              <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/CentOS/">CentOS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/MySQL/">MySQL</a></li></ul>
+            </div>
         </div>
         <div class="article-entry" itemprop="articleBody">
             
-            <h1 id="如何在墙内快速部署CentOS-7的MySQL"><a href="#如何在墙内快速部署CentOS-7的MySQL" class="headerlink" title="如何在墙内快速部署CentOS 7的MySQL"></a>如何在墙内快速部署CentOS 7的MySQL</h1><p>MySQL 被 Oracle 收购后，CentOS 的镜像仓库中提供的默认的数据库也变为了 MariaDB，所以默认没有 MySQL ，需要手动安装。</p>
+            <p>MySQL 被 Oracle 收购后，CentOS 的镜像仓库中提供的默认的数据库也变为了 MariaDB，所以默认没有 MySQL ，需要手动安装。</p>
 <p>其实安装 MySQL 也并不是一件很难的事情，但是由于一些实际存在的问题(比如某墙)，让默认通过 yum 安装 MySQL 的速度太慢。这里提出一种可行的方案来快速部署 MySQL ，此方案同样适用于其他 rpm 包软件的手动安装。</p>
 <p>本文实际在讲的是，如何利用各种手段，加速和改善yum的安装过程。</p>
-<hr>
+<a id="more"></a>
+
 <h2 id="传统方案……慢到怀疑人生"><a href="#传统方案……慢到怀疑人生" class="headerlink" title="传统方案……慢到怀疑人生"></a>传统方案……慢到怀疑人生</h2><p>根据<a href="https://dev.mysql.com/downloads/repo/yum/" target="_blank" rel="noopener">官方指南</a>，我们执行如下命令：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 下载源</span></span><br><span class="line">wget <span class="string">"https://dev.mysql.com/get/mysql80-community-release-el7-2.noarch.rpm"</span></span><br><span class="line"><span class="comment"># 安装源</span></span><br><span class="line">sudo rpm -ivh mysql80-community-release-el7-2.noarch.rpm</span><br><span class="line"><span class="comment"># 检查源是否成功安装</span></span><br><span class="line">sudo yum repolist enabled | grep <span class="string">"mysql80-community*"</span></span><br></pre></td></tr></table></figure>
 
@@ -270,11 +274,11 @@
             <div>
     <ul class="post-copyright">
         <li class="post-copyright-author">
-            <strong>Post author:  </strong>ZJUSCT
+            <strong>Post author:  </strong>ZJU · SCT
         </li>
         <li class="post-copyright-link">
             <strong>Post link:  </strong>
-            <a href="/2019/03/31/Install-MySQL-on-CentOS7-Inside-GFW/" target="_blank" title="如何在墙内快速部署CentOS 7的MySQL">http://clusters.zju.edu.cn/2019/03/31/Install-MySQL-on-CentOS7-Inside-GFW/</a>
+            <a href="/2019/03/31/Install-MySQL-on-CentOS7-Inside-GFW/" target="_blank" title="如何在墙内快速部署CentOS 7的MySQL">https://zjusct.github.io/2019/03/31/Install-MySQL-on-CentOS7-Inside-GFW/</a>
         </li>
         <li class="post-copyright-license">
             <strong>Copyright Notice:  </strong>
@@ -292,7 +296,7 @@
     
 <nav id="article-nav">
   
-    <a href="/2019/03/31/Virtual-Memory-and-TLB/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="../Virtual-Memory-and-TLB/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
@@ -302,7 +306,7 @@
     </a>
   
   
-    <a href="/2018/12/24/bp/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="../../../../2018/12/24/bp/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
       <div class="article-nav-title">BP算法</div>
     </a>
@@ -318,7 +322,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#如何在墙内快速部署CentOS-7的MySQL"><span class="nav-number">1.</span> <span class="nav-text">如何在墙内快速部署CentOS 7的MySQL</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#传统方案……慢到怀疑人生"><span class="nav-number">1.1.</span> <span class="nav-text">传统方案……慢到怀疑人生</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#手动安装法"><span class="nav-number">1.2.</span> <span class="nav-text">手动安装法</span></a></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#传统方案……慢到怀疑人生"><span class="nav-number">1.</span> <span class="nav-text">传统方案……慢到怀疑人生</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#手动安装法"><span class="nav-number">2.</span> <span class="nav-text">手动安装法</span></a></li></ol>
         
     </div>
 </aside>
@@ -361,15 +365,15 @@
       </div>
       <!-- <nav id="mobile-nav">
   
-    <a href="/" class="mobile-nav-link">Home</a>
+    <a href="../../../../index.html" class="mobile-nav-link">Home</a>
   
-    <a href="/archives" class="mobile-nav-link">Articles</a>
+    <a href="../../../../archives" class="mobile-nav-link">Articles</a>
   
-    <a href="/about" class="mobile-nav-link">About</a>
+    <a href="../../../../about" class="mobile-nav-link">About</a>
   
-    <a href="/teamIntro" class="mobile-nav-link">Team Intro</a>
+    <a href="../../../../teamIntro" class="mobile-nav-link">Team Intro</a>
   
-    <a href="/contact" class="mobile-nav-link">Join Us</a>
+    <a href="../../../../contact" class="mobile-nav-link">Join Us</a>
   
 </nav> -->
       
@@ -407,16 +411,16 @@
 
 
 
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+  <link rel="stylesheet" href="../../../../fancybox/jquery.fancybox.css">
+  <script src="../../../../fancybox/jquery.fancybox.pack.js"></script>
 
 
-<script src="/js/scripts.js"></script>
+<script src="../../../../js/scripts.js"></script>
 
 
 
 
-  <script src="/js/dialog.js"></script>
+  <script src="../../../../js/dialog.js"></script>
 
 
 
@@ -458,7 +462,7 @@
           </div>
 
           <div class="panel-body">
-            Copyright © 2019 ZJUSCT All Rights Reserved.
+            Copyright © 2019 ZJU · SCT All Rights Reserved.
           </div>
 
         </div>

@@ -6,31 +6,31 @@
   <title>virtual memory and tlb | 浙江大学超算队</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="keywords" content="TechOperating SusyemVirtual MemoryTLB">
+  <meta name="keywords" content="TechOperating Susyem">
   
   
   
   
-  <meta name="description" content="Virtual Memory and TLB虚拟地址空间x86 CPU 的地址总选宽度为32位，理论寻址上限为4GB。而虚拟地址空间的大小就是4GB，占满总线，且空间中的每一个字节分配一个虚拟地址  其中高2G0x80000000 ~ 0xFFFFFFFF为内和空间，由操作系统调用； 低2G0x00000000 ~ 0x7FFFFFFF为用户空间，由用户使用。  在系统中运行的每一个进程都独自拥有">
-<meta name="keywords" content="Tech,Operating Susyem,Virtual Memory,TLB">
+  <meta name="description" content="虚拟地址空间x86 CPU 的地址总选宽度为32位，理论寻址上限为4GB。而虚拟地址空间的大小就是4GB，占满总线，且空间中的每一个字节分配一个虚拟地址  其中高2G0x80000000 ~ 0xFFFFFFFF为内和空间，由操作系统调用； 低2G0x00000000 ~ 0x7FFFFFFF为用户空间，由用户使用。  在系统中运行的每一个进程都独自拥有一个虚拟空间，进城之间的虚拟空间不共用。">
+<meta name="keywords" content="Tech,Operating Susyem">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Virtual Memory and TLB">
-<meta property="og:url" content="http://clusters.zju.edu.cn/2019/03/31/Virtual-Memory-and-TLB/index.html">
+<meta property="og:url" content="https://zjusct.github.io/2019/03/31/Virtual-Memory-and-TLB/index.html">
 <meta property="og:site_name" content="浙江大学超算队">
-<meta property="og:description" content="Virtual Memory and TLB虚拟地址空间x86 CPU 的地址总选宽度为32位，理论寻址上限为4GB。而虚拟地址空间的大小就是4GB，占满总线，且空间中的每一个字节分配一个虚拟地址  其中高2G0x80000000 ~ 0xFFFFFFFF为内和空间，由操作系统调用； 低2G0x00000000 ~ 0x7FFFFFFF为用户空间，由用户使用。  在系统中运行的每一个进程都独自拥有">
+<meta property="og:description" content="虚拟地址空间x86 CPU 的地址总选宽度为32位，理论寻址上限为4GB。而虚拟地址空间的大小就是4GB，占满总线，且空间中的每一个字节分配一个虚拟地址  其中高2G0x80000000 ~ 0xFFFFFFFF为内和空间，由操作系统调用； 低2G0x00000000 ~ 0x7FFFFFFF为用户空间，由用户使用。  在系统中运行的每一个进程都独自拥有一个虚拟空间，进城之间的虚拟空间不共用。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://clusters.zju.edu.cn/2019/03/31/Virtual-Memory-and-TLB/OG.png">
-<meta property="og:image" content="http://clusters.zju.edu.cn/2019/03/31/Virtual-Memory-and-TLB/%232.png">
-<meta property="og:image" content="http://clusters.zju.edu.cn/2019/03/31/Virtual-Memory-and-TLB/%231.png">
-<meta property="og:image" content="http://clusters.zju.edu.cn/2019/03/31/Virtual-Memory-and-TLB/%237.png">
-<meta property="og:image" content="http://clusters.zju.edu.cn/2019/03/31/Virtual-Memory-and-TLB/%233.png">
-<meta property="og:image" content="http://clusters.zju.edu.cn/2019/03/31/Virtual-Memory-and-TLB/%234.png">
-<meta property="og:image" content="http://clusters.zju.edu.cn/2019/03/31/Virtual-Memory-and-TLB/%236.png">
-<meta property="og:updated_time" content="2019-05-12T12:42:23.050Z">
+<meta property="og:image" content="https://zjusct.github.io/2019/03/31/Virtual-Memory-and-TLB/OG.png">
+<meta property="og:image" content="https://zjusct.github.io/2019/03/31/Virtual-Memory-and-TLB/%232.png">
+<meta property="og:image" content="https://zjusct.github.io/2019/03/31/Virtual-Memory-and-TLB/%231.png">
+<meta property="og:image" content="https://zjusct.github.io/2019/03/31/Virtual-Memory-and-TLB/%237.png">
+<meta property="og:image" content="https://zjusct.github.io/2019/03/31/Virtual-Memory-and-TLB/%233.png">
+<meta property="og:image" content="https://zjusct.github.io/2019/03/31/Virtual-Memory-and-TLB/%234.png">
+<meta property="og:image" content="https://zjusct.github.io/2019/03/31/Virtual-Memory-and-TLB/%236.png">
+<meta property="og:updated_time" content="2019-05-13T07:22:04.313Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Virtual Memory and TLB">
-<meta name="twitter:description" content="Virtual Memory and TLB虚拟地址空间x86 CPU 的地址总选宽度为32位，理论寻址上限为4GB。而虚拟地址空间的大小就是4GB，占满总线，且空间中的每一个字节分配一个虚拟地址  其中高2G0x80000000 ~ 0xFFFFFFFF为内和空间，由操作系统调用； 低2G0x00000000 ~ 0x7FFFFFFF为用户空间，由用户使用。  在系统中运行的每一个进程都独自拥有">
-<meta name="twitter:image" content="http://clusters.zju.edu.cn/2019/03/31/Virtual-Memory-and-TLB/OG.png">
+<meta name="twitter:description" content="虚拟地址空间x86 CPU 的地址总选宽度为32位，理论寻址上限为4GB。而虚拟地址空间的大小就是4GB，占满总线，且空间中的每一个字节分配一个虚拟地址  其中高2G0x80000000 ~ 0xFFFFFFFF为内和空间，由操作系统调用； 低2G0x00000000 ~ 0x7FFFFFFF为用户空间，由用户使用。  在系统中运行的每一个进程都独自拥有一个虚拟空间，进城之间的虚拟空间不共用。">
+<meta name="twitter:image" content="https://zjusct.github.io/2019/03/31/Virtual-Memory-and-TLB/OG.png">
   
 
   
@@ -48,16 +48,16 @@
     @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
     @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
     @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style>
-  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="../../../../css/style.css">
 
-  <script src="/js/jquery-3.1.1.min.js"></script>
-  <script src="/js/bootstrap.js"></script>
+  <script src="../../../../js/jquery-3.1.1.min.js"></script>
+  <script src="../../../../js/bootstrap.js"></script>
 
   <!-- Bootstrap core CSS -->
   <link rel="stylesheet" href="/css/bootstrap.css">
 
   
-    <link rel="stylesheet" href="/css/dialog.css">
+    <link rel="stylesheet" href="../../../../css/dialog.css">
   
 
   
@@ -106,15 +106,15 @@
             <div class="navbar-collapse collapse">
               <ul class="hnav navbar-nav">
                 
-                  <li> <a class="main-nav-link" href="/">Home</a> </li>
+                  <li> <a class="main-nav-link" href="../../../../index.html">Home</a> </li>
                 
-                  <li> <a class="main-nav-link" href="/archives">articles</a> </li>
+                  <li> <a class="main-nav-link" href="../../../../archives">Articles</a> </li>
                 
-                  <li> <a class="main-nav-link" href="/about">About</a> </li>
+                  <li> <a class="main-nav-link" href="../../../../about">About</a> </li>
                 
-                  <li> <a class="main-nav-link" href="/teamIntro">team intro</a> </li>
+                  <li> <a class="main-nav-link" href="../../../../teamIntro">TeamIntro</a> </li>
                 
-                  <li> <a class="main-nav-link" href="/contact">join us</a> </li>
+                  <li> <a class="main-nav-link" href="../../../../contact">JoinUs</a> </li>
                 
                   <li><div id="search-form-wrap">
 
@@ -145,12 +145,12 @@
             UNTITLED: '(Untitled)',
         },
         ROOT_URL: '/',
-        CONTENT_URL: '/content.json',
+        CONTENT_URL: '../../../../content.json',
     };
     window.INSIGHT_CONFIG = INSIGHT_CONFIG;
 })(window);
 </script>
-<script src="/js/insight.js"></script>
+<script src="../../../../js/insight.js"></script>
 
 </div></li>
             </ul></div>
@@ -185,7 +185,7 @@
         
         <div class="article-meta">
             
-	<a href="/2019/03/31/Virtual-Memory-and-TLB/" class="article-date">
+	<a href class="article-date">
 	  <time datetime="2019-03-31T06:05:11.000Z" itemprop="datePublished">2019-03-31</time>
 	</a>
 
@@ -197,15 +197,20 @@
 		</span>
 	</a>
 
+            <div class="article-article-tags-box">
+              <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/Operating-Susyem/">Operating Susyem</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/Tech/">Tech</a></li></ul>
+            </div>
         </div>
         <div class="article-entry" itemprop="articleBody">
             
-            <h1 id="Virtual-Memory-and-TLB"><a href="#Virtual-Memory-and-TLB" class="headerlink" title="Virtual Memory and TLB"></a>Virtual Memory and TLB</h1><h2 id="虚拟地址空间"><a href="#虚拟地址空间" class="headerlink" title="虚拟地址空间"></a>虚拟地址空间</h2><p>x86 CPU 的地址总选宽度为32位，理论寻址上限为4GB。而虚拟地址空间的大小就是4GB，占满总线，且空间中的每一个字节分配一个虚拟地址</p>
+            <h2 id="虚拟地址空间"><a href="#虚拟地址空间" class="headerlink" title="虚拟地址空间"></a>虚拟地址空间</h2><p>x86 CPU 的地址总选宽度为32位，理论寻址上限为4GB。而虚拟地址空间的大小就是4GB，占满总线，且空间中的每一个字节分配一个虚拟地址</p>
 <ul>
 <li>其中高2G<code>0x80000000 ~ 0xFFFFFFFF</code>为内和空间，由操作系统调用；</li>
 <li>低2G<code>0x00000000 ~ 0x7FFFFFFF</code>为用户空间，由用户使用。</li>
 </ul>
 <p>在系统中运行的每一个进程都独自拥有一个虚拟空间，进城之间的虚拟空间不共用。</p>
+<a id="more"></a>
+
 <p>虚拟地址空间是一种通过机制映射出来的空间，与实际物理空间大小无必然联系，在x86保护模式下，无论计算及实际主存是512MB还是8GB，虚拟地址空间总是4GB，<strong>这是由CPU和操作系统的宽度决定的</strong>，即：</p>
 <blockquote>
 <p>CPU地址总线宽度 → 物理地址范围<br>CPU的ALU宽度 → 操作系统位数 → 虚拟地址范围</p>
@@ -323,11 +328,11 @@
             <div>
     <ul class="post-copyright">
         <li class="post-copyright-author">
-            <strong>Post author:  </strong>ZJUSCT
+            <strong>Post author:  </strong>ZJU · SCT
         </li>
         <li class="post-copyright-link">
             <strong>Post link:  </strong>
-            <a href="/2019/03/31/Virtual-Memory-and-TLB/" target="_blank" title="Virtual Memory and TLB">http://clusters.zju.edu.cn/2019/03/31/Virtual-Memory-and-TLB/</a>
+            <a href="/2019/03/31/Virtual-Memory-and-TLB/" target="_blank" title="Virtual Memory and TLB">https://zjusct.github.io/2019/03/31/Virtual-Memory-and-TLB/</a>
         </li>
         <li class="post-copyright-license">
             <strong>Copyright Notice:  </strong>
@@ -345,7 +350,7 @@
     
 <nav id="article-nav">
   
-    <a href="/2019/05/11/Image-Restoration-SimpleVersion/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="../../../05/11/Image-Restoration-SimpleVersion/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
@@ -355,7 +360,7 @@
     </a>
   
   
-    <a href="/2019/03/31/Install-MySQL-on-CentOS7-Inside-GFW/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="../Install-MySQL-on-CentOS7-Inside-GFW/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
       <div class="article-nav-title">如何在墙内快速部署CentOS 7的MySQL</div>
     </a>
@@ -371,7 +376,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Virtual-Memory-and-TLB"><span class="nav-number">1.</span> <span class="nav-text">Virtual Memory and TLB</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#虚拟地址空间"><span class="nav-number">1.1.</span> <span class="nav-text">虚拟地址空间</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#虚拟内存"><span class="nav-number">1.1.1.</span> <span class="nav-text">虚拟内存</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#保护模式下的进程运行"><span class="nav-number">1.2.</span> <span class="nav-text">保护模式下的进程运行</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#地址转化"><span class="nav-number">1.3.</span> <span class="nav-text">地址转化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-逻辑地址-→-线性地址-段式内存管理，Intel早期策略的保留"><span class="nav-number">1.3.1.</span> <span class="nav-text">1. 逻辑地址 → 线性地址 (段式内存管理，Intel早期策略的保留)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-线性地址-→-物理地址-页式内存管理"><span class="nav-number">1.3.2.</span> <span class="nav-text">2. 线性地址 → 物理地址 (页式内存管理)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-TLB-转换检测缓冲区、快表、转译后被缓冲区"><span class="nav-number">1.3.3.</span> <span class="nav-text">3. TLB (转换检测缓冲区、快表、转译后被缓冲区)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux-段式管理"><span class="nav-number">1.4.</span> <span class="nav-text">Linux 段式管理</span></a></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#虚拟地址空间"><span class="nav-number">1.</span> <span class="nav-text">虚拟地址空间</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#虚拟内存"><span class="nav-number">1.1.</span> <span class="nav-text">虚拟内存</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#保护模式下的进程运行"><span class="nav-number">2.</span> <span class="nav-text">保护模式下的进程运行</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#地址转化"><span class="nav-number">3.</span> <span class="nav-text">地址转化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-逻辑地址-→-线性地址-段式内存管理，Intel早期策略的保留"><span class="nav-number">3.1.</span> <span class="nav-text">1. 逻辑地址 → 线性地址 (段式内存管理，Intel早期策略的保留)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-线性地址-→-物理地址-页式内存管理"><span class="nav-number">3.2.</span> <span class="nav-text">2. 线性地址 → 物理地址 (页式内存管理)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-TLB-转换检测缓冲区、快表、转译后被缓冲区"><span class="nav-number">3.3.</span> <span class="nav-text">3. TLB (转换检测缓冲区、快表、转译后被缓冲区)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux-段式管理"><span class="nav-number">4.</span> <span class="nav-text">Linux 段式管理</span></a></li></ol>
         
     </div>
 </aside>
@@ -414,15 +419,15 @@
       </div>
       <!-- <nav id="mobile-nav">
   
-    <a href="/" class="mobile-nav-link">Home</a>
+    <a href="../../../../index.html" class="mobile-nav-link">Home</a>
   
-    <a href="/archives" class="mobile-nav-link">Articles</a>
+    <a href="../../../../archives" class="mobile-nav-link">Articles</a>
   
-    <a href="/about" class="mobile-nav-link">About</a>
+    <a href="../../../../about" class="mobile-nav-link">About</a>
   
-    <a href="/teamIntro" class="mobile-nav-link">Team Intro</a>
+    <a href="../../../../teamIntro" class="mobile-nav-link">Team Intro</a>
   
-    <a href="/contact" class="mobile-nav-link">Join Us</a>
+    <a href="../../../../contact" class="mobile-nav-link">Join Us</a>
   
 </nav> -->
       
@@ -460,16 +465,16 @@
 
 
 
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+  <link rel="stylesheet" href="../../../../fancybox/jquery.fancybox.css">
+  <script src="../../../../fancybox/jquery.fancybox.pack.js"></script>
 
 
-<script src="/js/scripts.js"></script>
+<script src="../../../../js/scripts.js"></script>
 
 
 
 
-  <script src="/js/dialog.js"></script>
+  <script src="../../../../js/dialog.js"></script>
 
 
 
@@ -511,7 +516,7 @@
           </div>
 
           <div class="panel-body">
-            Copyright © 2019 ZJUSCT All Rights Reserved.
+            Copyright © 2019 ZJU · SCT All Rights Reserved.
           </div>
 
         </div>

@@ -9,16 +9,16 @@
   
   
   
-  <meta name="description" content="Official Blog Of ZJUSCT">
+  <meta name="description" content="Infinit Cores &amp; Possibility.">
 <meta property="og:type" content="website">
 <meta property="og:title" content="浙江大学超算队">
-<meta property="og:url" content="http://clusters.zju.edu.cn/tags/MySQL/index.html">
+<meta property="og:url" content="https://zjusct.github.io/tags/MySQL/index.html">
 <meta property="og:site_name" content="浙江大学超算队">
-<meta property="og:description" content="Official Blog Of ZJUSCT">
+<meta property="og:description" content="Infinit Cores &amp; Possibility.">
 <meta property="og:locale" content="default">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浙江大学超算队">
-<meta name="twitter:description" content="Official Blog Of ZJUSCT">
+<meta name="twitter:description" content="Infinit Cores &amp; Possibility.">
   
 
   
@@ -36,16 +36,16 @@
     @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
     @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
     @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style>
-  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="../../css/style.css">
 
-  <script src="/js/jquery-3.1.1.min.js"></script>
-  <script src="/js/bootstrap.js"></script>
+  <script src="../../js/jquery-3.1.1.min.js"></script>
+  <script src="../../js/bootstrap.js"></script>
 
   <!-- Bootstrap core CSS -->
   <link rel="stylesheet" href="/css/bootstrap.css">
 
   
-    <link rel="stylesheet" href="/css/dialog.css">
+    <link rel="stylesheet" href="../../css/dialog.css">
   
 
   
@@ -96,15 +96,15 @@
             <div class="navbar-collapse collapse">
               <ul class="hnav navbar-nav">
                 
-                  <li> <a class="main-nav-link" href="/">Home</a> </li>
+                  <li> <a class="main-nav-link" href="../../index.html">Home</a> </li>
                 
-                  <li> <a class="main-nav-link" href="/archives">articles</a> </li>
+                  <li> <a class="main-nav-link" href="../../archives">Articles</a> </li>
                 
-                  <li> <a class="main-nav-link" href="/about">About</a> </li>
+                  <li> <a class="main-nav-link" href="../../about">About</a> </li>
                 
-                  <li> <a class="main-nav-link" href="/teamIntro">team intro</a> </li>
+                  <li> <a class="main-nav-link" href="../../teamIntro">TeamIntro</a> </li>
                 
-                  <li> <a class="main-nav-link" href="/contact">join us</a> </li>
+                  <li> <a class="main-nav-link" href="../../contact">JoinUs</a> </li>
                 
                   <li><div id="search-form-wrap">
 
@@ -135,12 +135,12 @@
             UNTITLED: '(Untitled)',
         },
         ROOT_URL: '/',
-        CONTENT_URL: '/content.json',
+        CONTENT_URL: '../../content.json',
     };
     window.INSIGHT_CONFIG = INSIGHT_CONFIG;
 })(window);
 </script>
-<script src="/js/insight.js"></script>
+<script src="../../js/insight.js"></script>
 
 </div></li>
             </ul></div>
@@ -169,7 +169,7 @@
       
       <section class="archives-wrap">
         <div class="archive-year-wrap">
-          <h1><a href="/archives/2019" class="archive-year">2019</a></h1>
+          <h1><a href="../../archives/2019" class="archive-year">2019</a></h1>
         </div>
         <div class="archives">
     
@@ -177,20 +177,42 @@
   <div class="archive-article-inner">
     <header class="archive-article-header">
       
-	<a href="/2019/03/31/Install-MySQL-on-CentOS7-Inside-GFW/" class="archive-article-date">
+	<a href="../../2019/03/31/Install-MySQL-on-CentOS7-Inside-GFW/" class="archive-article-date">
 	  <time datetime="2019-03-31T02:45:19.000Z" itemprop="datePublished">2019-03-31</time>
 	</a>
 
       
   
     <h1 class="thumb" itemprop="name">
-      <a class="archive-article-title" href="/2019/03/31/Install-MySQL-on-CentOS7-Inside-GFW/">如何在墙内快速部署CentOS 7的MySQL</a>
+      <a class="archive-article-title" href="../../2019/03/31/Install-MySQL-on-CentOS7-Inside-GFW/">如何在墙内快速部署CentOS 7的MySQL</a>
     </h1>
   
+
+
+      <div class="article-info">
+	  	<div class="article-author-box">
+	      <p class="archive-article-author"> Author: 王克</p>
+	    </div>
+	    <div class="article-tags-box">
+	      <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../CentOS/">CentOS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href>MySQL</a></li></ul>
+	    </div>
+   	  </div>
+
+      <div class="article-entry" itemprop="articleBody">
+	    <p class="article-excerpt-content">
+	      MySQL 被 Oracle 收购后，CentOS 的镜像仓库中提供的默认的数据库也变为了 MariaDB，所以默认没有 MySQL ，需要手动安装。
+其实安装 MySQL 也并不是一件很难的事情，但是由于一些实际存在的问题(比如某墙)，让默认通过 yum 安装 MySQL 的速度太慢。这里提出一种可行的方案来快速部署 MySQL ，此方案同样适用于其他 rpm 包软件的手动安装。
+本文实际在讲的是，如何利用各种手段，加速和改善yum的安装过程。
+
+
+传统方案……慢到怀疑人生根据官方指南，...
+	    </p>
+	  </div>
 
     </header>
   </div>
 </article>
+
   
   
     </div></section>
@@ -235,15 +257,15 @@
       </div>
       <!-- <nav id="mobile-nav">
   
-    <a href="/" class="mobile-nav-link">Home</a>
+    <a href="../../index.html" class="mobile-nav-link">Home</a>
   
-    <a href="/archives" class="mobile-nav-link">Articles</a>
+    <a href="../../archives" class="mobile-nav-link">Articles</a>
   
-    <a href="/about" class="mobile-nav-link">About</a>
+    <a href="../../about" class="mobile-nav-link">About</a>
   
-    <a href="/teamIntro" class="mobile-nav-link">Team Intro</a>
+    <a href="../../teamIntro" class="mobile-nav-link">Team Intro</a>
   
-    <a href="/contact" class="mobile-nav-link">Join Us</a>
+    <a href="../../contact" class="mobile-nav-link">Join Us</a>
   
 </nav> -->
       
@@ -281,11 +303,11 @@
 
 
 
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+  <link rel="stylesheet" href="../../fancybox/jquery.fancybox.css">
+  <script src="../../fancybox/jquery.fancybox.pack.js"></script>
 
 
-<script src="/js/scripts.js"></script>
+<script src="../../js/scripts.js"></script>
 
 
 
@@ -330,7 +352,7 @@
           </div>
 
           <div class="panel-body">
-            Copyright © 2019 ZJUSCT All Rights Reserved.
+            Copyright © 2019 ZJU · SCT All Rights Reserved.
           </div>
 
         </div>
